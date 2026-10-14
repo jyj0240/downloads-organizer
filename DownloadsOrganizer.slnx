@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DownloadsOrganizer.App/DownloadsOrganizer.App.csproj" />
+    <Project Path="src/DownloadsOrganizer.Cli/DownloadsOrganizer.Cli.csproj" />
+    <Project Path="src/DownloadsOrganizer.Core/DownloadsOrganizer.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DownloadsOrganizer.App.Tests/DownloadsOrganizer.App.Tests.csproj" />
+    <Project Path="tests/DownloadsOrganizer.Core.Tests/DownloadsOrganizer.Core.Tests.csproj" />
+  </Folder>
+</Solution>

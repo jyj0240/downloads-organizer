@@ -1,0 +1,65 @@
+name: Release
+
+# Pushing a tag such as v0.4.1 runs the tests, builds the single exe and publishes it as a GitHub release.
+# The annotated tag's message becomes the release notes.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_NOLOGO: '1'
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Check the tag matches the version in the project
+        run: |
+          $version = $env:GITHUB_REF_NAME.TrimStart('v')
+          [xml]$project = Get-Content src/DownloadsOrganizer.App/DownloadsOrganizer.App.csproj
+          $declared = @($project.Project.PropertyGroup.Version | Where-Object { $_ })[0]
+          if ($declared -ne $version) { throw "Tag $env:GITHUB_REF_NAME does not match <Version>$declared</Version> in DownloadsOrganizer.App.csproj" }
+          "VERSION=$version" >> $env:GITHUB_ENV
+
+      - name: Test
+        run: dotnet test DownloadsOrganizer.slnx -c Release
+
+      - name: Build the single exe
+        run: dotnet publish src/DownloadsOrganizer.App -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -o artifacts/single
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # checkout can turn an annotated tag into a lightweight one; fetch it again to read its message
+          git fetch --force origin "+refs/tags/${env:GITHUB_REF_NAME}:refs/tags/${env:GITHUB_REF_NAME}"
+          $message = (git tag --list $env:GITHUB_REF_NAME --format='%(contents)') -join "`n"
+          $exe = 'artifacts/single/DownloadsOrganizer.exe'
+          $hash = (Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant()
+          $notes = @"
+          $($message.Trim())
+
+          ## Install
+
+          Download ``DownloadsOrganizer.exe`` and run it. It installs itself for your user account (no admin rights) and starts in the tray. To update, run a newer exe.
+
+          The exe is not signed yet, so Windows may say "Windows protected your PC". Choose **More info**, then **Run anyway**.
+
+          ``DownloadsOrganizer.exe``를 받아 실행하면 스스로 설치되고 트레이에서 돕니다. 서명 전이라 "Windows의 PC 보호" 창이 뜨면 **추가 정보** > **실행**을 누르세요.
+
+          SHA-256: ``$hash``
+          "@
+          Set-Content -Path notes.md -Value $notes -Encoding utf8
+          gh release create $env:GITHUB_REF_NAME $exe --title "Downloads Organizer $env:VERSION" --notes-file notes.md --verify-tag

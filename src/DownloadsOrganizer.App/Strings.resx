@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- tray -->
+  <data name="MenuOrganizeNow" xml:space="preserve"><value>Organize now</value></data>
+  <data name="MenuPause" xml:space="preserve"><value>Pause</value></data>
+  <data name="MenuResume" xml:space="preserve"><value>Resume</value></data>
+  <data name="MenuUndoLast" xml:space="preserve"><value>Undo last move ({0} items)</value></data>
+  <data name="MenuUndoNothing" xml:space="preserve"><value>Nothing to undo</value></data>
+  <data name="MenuHistory" xml:space="preserve"><value>Move history...</value></data>
+  <data name="MenuSettings" xml:space="preserve"><value>Settings...</value></data>
+  <data name="MenuCheckUpdates" xml:space="preserve"><value>Check for updates</value></data>
+  <data name="MenuUninstall" xml:space="preserve"><value>Uninstall...</value></data>
+  <data name="MenuExit" xml:space="preserve"><value>Exit</value></data>
+  <data name="TooltipWatching" xml:space="preserve"><value>Downloads Organizer - keeping your folders tidy</value></data>
+  <data name="TooltipPaused" xml:space="preserve"><value>Downloads Organizer - paused</value></data>
+  <data name="FirstRunTitle" xml:space="preserve"><value>Downloads Organizer is running</value></data>
+  <data name="FirstRunText" xml:space="preserve"><value>Finished downloads are sorted into folders {0} minutes after they arrive. Right-click this icon for options.</value></data>
+  <data name="MovedTitle" xml:space="preserve"><value>Downloads organized</value></data>
+  <data name="MovedText" xml:space="preserve"><value>Moved {0} item(s). Click to see the move history.</value></data>
+  <data name="NothingToMove" xml:space="preserve"><value>Nothing to move right now.</value></data>
+  <data name="UndoTitle" xml:space="preserve"><value>Undo</value></data>
+  <data name="UndoText" xml:space="preserve"><value>Put back {0}, skipped {1}.</value></data>
+  <data name="UninstallConfirm" xml:space="preserve"><value>Uninstall Downloads Organizer? Files it already sorted stay where they are.</value></data>
+  <data name="UninstallDeleteData" xml:space="preserve"><value>Also delete your settings and move history?</value></data>
+  <data name="UninstallDone" xml:space="preserve"><value>Downloads Organizer was removed.</value></data>
+  <data name="InstallFailed" xml:space="preserve"><value>Downloads Organizer could not be installed.</value></data>
+  <!-- updates -->
+  <data name="UpdateTitle" xml:space="preserve"><value>Downloads Organizer update</value></data>
+  <data name="UpdateUpToDate" xml:space="preserve"><value>You have the latest version ({0}).</value></data>
+  <data name="UpdateCheckFailed" xml:space="preserve"><value>Couldn't check for updates. Check your internet connection and try again later.</value></data>
+  <data name="UpdateAsk" xml:space="preserve"><value>Version {0} is out (you have {1}).
+
+Install it now? The app closes for a moment and starts again.</value></data>
+  <data name="UpdateDownloading" xml:space="preserve"><value>Downloading version {0}...</value></data>
+  <data name="UpdateInstallFailed" xml:space="preserve"><value>The update couldn't be installed. Try again later.</value></data>
+  <data name="UpdatedText" xml:space="preserve"><value>Updated to version {0}.</value></data>
+  <data name="SaveFailed" xml:space="preserve"><value>Settings could not be saved.</value></data>
+  <!-- history window -->
+  <data name="HistoryTitle" xml:space="preserve"><value>Move history - Downloads Organizer</value></data>
+  <data name="HistorySearchLabel" xml:space="preserve"><value>Find</value></data>
+  <data name="HistorySearch" xml:space="preserve"><value>Part of a file name</value></data>
+  <data name="HistoryShowUndone" xml:space="preserve"><value>Show undone moves</value></data>
+  <data name="ColTime" xml:space="preserve"><value>When</value></data>
+  <data name="ColFile" xml:space="preserve"><value>File</value></data>
+  <data name="ColMovedTo" xml:space="preserve"><value>Moved to</value></data>
+  <data name="ColFrom" xml:space="preserve"><value>From</value></data>
+  <data name="ColRule" xml:space="preserve"><value>Because of</value></data>
+  <data name="ColStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="RuleByType" xml:space="preserve"><value>File type</value></data>
+  <data name="StatusMoved" xml:space="preserve"><value>Moved</value></data>
+  <data name="StatusUndone" xml:space="preserve"><value>Put back</value></data>
+  <data name="BtnUndoSelected" xml:space="preserve"><value>Undo selected</value></data>
+  <data name="BtnOpenLocation" xml:space="preserve"><value>Show in folder</value></data>
+  <data name="BtnClose" xml:space="preserve"><value>Close</value></data>
+  <data name="HistoryEmpty" xml:space="preserve"><value>Nothing has been moved yet.</value></data>
+  <data name="HistoryCount" xml:space="preserve"><value>{0} shown of {1} moves</value></data>
+  <!-- settings window -->
+  <data name="SettingsTitle" xml:space="preserve"><value>Settings - Downloads Organizer</value></data>
+  <data name="GroupGeneral" xml:space="preserve"><value>General</value></data>
+  <data name="BtnBrowse" xml:space="preserve"><value>Browse...</value></data>
+  <data name="LblWait" xml:space="preserve"><value>Wait after a download</value></data>
+  <data name="LblMinutes" xml:space="preserve"><value>minutes</value></data>
+  <data name="HintWait" xml:space="preserve"><value>time to open a file before it is moved</value></data>
+  <data name="LblLanguage" xml:space="preserve"><value>Language</value></data>
+  <data name="LangAuto" xml:space="preserve"><value>Same as Windows</value></data>
+  <data name="LangKorean" xml:space="preserve"><value>한국어</value></data>
+  <data name="LangEnglish" xml:space="preserve"><value>English</value></data>
+  <data name="ChkMoveFolders" xml:space="preserve"><value>Also move subfolders (for example extracted archives) into "Folders"</value></data>
+  <data name="ChkNotify" xml:space="preserve"><value>Show a notification after moving files</value></data>
+  <data name="ChkRunAtStartup" xml:space="preserve"><value>Start when I sign in to Windows</value></data>
+  <data name="ChkAutoUpdate" xml:space="preserve"><value>Install new versions automatically</value></data>
+  <data name="OnlyWhenInstalled" xml:space="preserve"><value>(only for the installed app)</value></data>
+  <data name="GroupRules" xml:space="preserve"><value>Rules</value></data>
+  <data name="RulesHint" xml:space="preserve"><value>Checked from the top, in every folder. A relative destination such as Finance is created inside each folder.</value></data>
+  <data name="ColRuleName" xml:space="preserve"><value>Name</value></data>
+  <data name="ColRuleCondition" xml:space="preserve"><value>Applies to</value></data>
+  <data name="ColRuleDestination" xml:space="preserve"><value>Moves to</value></data>
+  <data name="NoRules" xml:space="preserve"><value>No rules yet. Click "Add..." to make one.</value></data>
+  <data name="BtnAdd" xml:space="preserve"><value>Add...</value></data>
+  <data name="BtnEdit" xml:space="preserve"><value>Edit...</value></data>
+  <data name="BtnDelete" xml:space="preserve"><value>Delete</value></data>
+  <data name="BtnUp" xml:space="preserve"><value>Move up</value></data>
+  <data name="BtnDown" xml:space="preserve"><value>Move down</value></data>
+  <data name="BtnOk" xml:space="preserve"><value>OK</value></data>
+  <data name="BtnCancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="ConfirmDeleteRule" xml:space="preserve"><value>Delete the rule "{0}"?</value></data>
+  <data name="CondName" xml:space="preserve"><value>name {0}</value></data>
+  <data name="CondSite" xml:space="preserve"><value>from {0}</value></data>
+  <data name="CondMin" xml:space="preserve"><value>at least {0} MB</value></data>
+  <data name="CondMax" xml:space="preserve"><value>at most {0} MB</value></data>
+  <!-- rule editor -->
+  <data name="RuleTitleAdd" xml:space="preserve"><value>Add rule</value></data>
+  <data name="RuleTitleEdit" xml:space="preserve"><value>Edit rule</value></data>
+  <data name="LblRuleName" xml:space="preserve"><value>Rule name</value></data>
+  <data name="HintRuleName" xml:space="preserve"><value>Anything that helps you recognize it, e.g. Bank statements</value></data>
+  <data name="LblNamePattern" xml:space="preserve"><value>File name</value></data>
+  <data name="HintNamePattern" xml:space="preserve"><value>* means any text. e.g. *statement*.pdf</value></data>
+  <data name="LblSourceSite" xml:space="preserve"><value>Downloaded from</value></data>
+  <data name="HintSourceSite" xml:space="preserve"><value>Site address, subdomains included. e.g. example.com</value></data>
+  <data name="LblSize" xml:space="preserve"><value>Size</value></data>
+  <data name="LblSizeMin" xml:space="preserve"><value>at least</value></data>
+  <data name="LblSizeMax" xml:space="preserve"><value>at most</value></data>
+  <data name="HintConditions" xml:space="preserve"><value>Fill in at least one condition. When several are filled in, all must match.</value></data>
+  <data name="LblDestination" xml:space="preserve"><value>Move to</value></data>
+  <data name="HintDestination" xml:space="preserve"><value>A folder name (e.g. Finance), made inside each tidied folder, or a full path. {yyyy} and {MM} add year and month folders.</value></data>
+  <data name="ErrNameRequired" xml:space="preserve"><value>Give the rule a name.</value></data>
+  <data name="ErrDestinationRequired" xml:space="preserve"><value>Choose where matching files go.</value></data>
+  <data name="ErrDestinationInvalid" xml:space="preserve"><value>The folder contains characters Windows does not allow.</value></data>
+  <data name="ErrConditionRequired" xml:space="preserve"><value>Fill in at least one condition: file name, site or size. A rule without one would move every file.</value></data>
+  <data name="ErrSizeNumber" xml:space="preserve"><value>Sizes must be numbers in MB, e.g. 1.5</value></data>
+  <data name="ErrSizeOrder" xml:space="preserve"><value>"At least" must not be larger than "at most".</value></data>
+  <data name="MenuOpenFolderNamed" xml:space="preserve"><value>Open {0}</value></data>
+  <data name="MenuOpenFolders" xml:space="preserve"><value>Open folder</value></data>
+  <data name="GroupFolders" xml:space="preserve"><value>Folders to keep tidy</value></data>
+  <data name="ColFolder" xml:space="preserve"><value>Folder</value></data>
+  <data name="ColFolderMode" xml:space="preserve"><value>What moves</value></data>
+  <data name="ModeByTypeAndRules" xml:space="preserve"><value>By file type and rules</value></data>
+  <data name="ModeRulesOnly" xml:space="preserve"><value>Only files matching a rule</value></data>
+  <data name="BtnAddFolder" xml:space="preserve"><value>Add folder...</value></data>
+  <data name="BtnRemoveFolder" xml:space="preserve"><value>Remove</value></data>
+  <data name="HintFolders" xml:space="preserve"><value>Ticked: files no rule matches go to a folder for their type. Unticked: only files matching a rule move. Shortcuts are never moved.</value></data>
+  <data name="ErrFolderMissing" xml:space="preserve"><value>This folder does not exist:
+{0}</value></data>
+  <data name="ErrFolderDriveRoot" xml:space="preserve"><value>A whole drive cannot be tidied:
+{0}</value></data>
+  <data name="ErrFolderSystemFolder" xml:space="preserve"><value>Windows and program folders cannot be tidied; programs would stop working:
+{0}</value></data>
+  <data name="ErrFolderProfileRoot" xml:space="preserve"><value>Your user folder itself cannot be tidied. Pick a folder inside it, such as Desktop or Downloads:
+{0}</value></data>
+  <data name="ErrFolderAppData" xml:space="preserve"><value>Programs keep their own files in AppData, so it cannot be tidied:
+{0}</value></data>
+  <data name="ErrFolderInsideAnother" xml:space="preserve"><value>This folder is inside a folder already on the list:
+{0}</value></data>
+  <data name="ErrFolderContainsAnother" xml:space="preserve"><value>A folder already on the list is inside this one. Remove that one first:
+{0}</value></data>
+  <data name="ErrFolderDuplicate" xml:space="preserve"><value>This folder is already on the list:
+{0}</value></data>
+  <data name="WarnCloudFolder" xml:space="preserve"><value>This folder is synced to the cloud (OneDrive, Dropbox, ...):
+{0}
+
+Files moved here are also moved on your other devices. Add it anyway?</value></data>
+</root>

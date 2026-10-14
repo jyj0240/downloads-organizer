@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\DownloadsOrganizer.Core\DownloadsOrganizer.Core.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <AssemblyName>DownloadsOrganizer</AssemblyName>
+    <Version>0.4.2</Version>
+    <Product>Downloads Organizer</Product>
+    <Company>jyj0240</Company>
+    <RootNamespace>DownloadsOrganizer.App</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Drawn by tools/make_icon.py; regenerate there instead of editing the .ico -->
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="DownloadsOrganizer.App.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Also embedded so the tray can pick the small size that matches the screen's DPI -->
+    <EmbeddedResource Include="Assets\app.ico" LogicalName="DownloadsOrganizer.App.app.ico" />
+  </ItemGroup>
+
+</Project>
