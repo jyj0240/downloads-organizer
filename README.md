@@ -27,10 +27,10 @@ installs it (turn this off in Settings; **Check for updates** in the tray menu a
 
 Uninstall from the tray menu or Settings > Apps. Files it already sorted stay where they are.
 
-한국어: 위 링크로 `DownloadsOrganizer.exe`를 받아 실행하면 설치가 끝납니다. "Windows의 PC 보호" 창이 뜨면
-**추가 정보**를 누른 뒤 **실행**을 누르세요.
-
 ## Use
+
+On first run it shows where the files already in your Downloads folder would go, and you choose to sort them now
+or leave them where they are. New downloads are sorted either way.
 
 Right-click the tray icon for the menu; double-click it for the move history, where you can search,
 undo chosen moves and show a file in its folder. **Settings...** sets the folders to keep tidy, the wait time,

@@ -15,6 +15,7 @@ public enum SkipReason
     RestoredByUser,     // put back with undo and not changed since: the user wants it here
     Shortcut,           // .lnk, .url: moving desktop shortcuts would make app icons disappear
     NoMatchingRule,     // sorting by type is off for this folder and no rule matched
+    ThereBeforeStart,   // already in the folder when the app started, and the user chose to leave those; "Organize now" still moves it
 }
 
 /// <summary>Decides whether an item is finished and safe to move. Never changes anything.</summary>

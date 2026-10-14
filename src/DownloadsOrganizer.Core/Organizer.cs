@@ -17,13 +17,18 @@ public sealed class Organizer(OrganizerSettings settings, MoveJournal journal, T
     readonly TimeProvider _time = time ?? TimeProvider.System;
 
     /// <summary>What would happen now. Changes nothing.</summary>
-    public IReadOnlyList<PlanItem> Plan()
+    /// <param name="includeLeftAlone">Also plan items that were there before the app started (for "Organize now").</param>
+    public IReadOnlyList<PlanItem> Plan(bool includeLeftAlone = false)
     {
         var root = new DirectoryInfo(settings.WatchFolder);
         var now = _time.GetUtcNow().UtcDateTime;
         var reserved = ReservedFolderNames();
         var restored = journal.RestoredItems();
         var plan = new List<PlanItem>();
+        // Creation time, not last change: a download that finished before the cut-off was created before it too,
+        // while an old file the user copies in later gets a new creation time and is sorted.
+        bool LeftAlone(FileSystemInfo entry) =>
+            !includeLeftAlone && settings.LeaveAloneBeforeUtc is { } before && entry.CreationTimeUtc < before;
 
         foreach (var entry in root.EnumerateFileSystemInfos())
         {
@@ -37,7 +42,7 @@ public sealed class Organizer(OrganizerSettings settings, MoveJournal journal, T
             if (entry is FileInfo file)
             {
                 var candidate = new Candidate(file.FullName, file.Name, false, file.Length, file.LastWriteTimeUtc, null);
-                var skip = Readiness.CheckFile(file, now, settings.SettleDelay);
+                var skip = Readiness.CheckFile(file, now, settings.SettleDelay) ?? (LeftAlone(file) ? SkipReason.ThereBeforeStart : null);
                 if (skip is not null)
                 {
                     plan.Add(new PlanItem(candidate, null, null, skip));
@@ -53,7 +58,8 @@ public sealed class Organizer(OrganizerSettings settings, MoveJournal journal, T
             {
                 var candidate = new Candidate(dir.FullName, dir.Name, true, 0, dir.LastWriteTimeUtc, null);
                 // Gathering subfolders into "Folders" is part of sorting by type.
-                var skip = Readiness.CheckFolder(dir, now, settings.SettleDelay, settings.MoveFolders && settings.SortByType, reserved);
+                var skip = Readiness.CheckFolder(dir, now, settings.SettleDelay, settings.MoveFolders && settings.SortByType, reserved)
+                    ?? (LeftAlone(dir) ? SkipReason.ThereBeforeStart : null);
                 plan.Add(skip is null
                     ? new PlanItem(candidate, Path.Combine(settings.WatchFolder, DefaultCategories.Folders), null, null)
                     : new PlanItem(candidate, null, null, skip));

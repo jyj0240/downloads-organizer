@@ -65,7 +65,7 @@ public sealed class AutoOrganizer : IDisposable
 
     /// <summary>
     /// One round: plan and move what is ready. Returns null when skipped (paused, or nothing changed and nothing waiting).
-    /// <paramref name="force"/> runs even then, for "organize now".
+    /// <paramref name="force"/> runs even then, for "organize now", and also moves items left alone since the first run.
     /// </summary>
     public IReadOnlyList<MoveOutcome>? Tick(bool force = false)
     {
@@ -77,7 +77,7 @@ public sealed class AutoOrganizer : IDisposable
                 return null;
             }
             _changed = false;
-            var plan = _organizer.Plan();
+            var plan = _organizer.Plan(includeLeftAlone: force);
             outcomes = _organizer.Apply(plan);
             _waiting = plan.Any(p => p.Skipped is SkipReason s && Waiting.Contains(s)) || outcomes.Any(o => !o.Moved);
         }

@@ -63,6 +63,23 @@ public class WindowRenderTests
     public void Rule_editor_renders_with_all_text(string language) =>
         Render(language, "rule-editor", () => new RuleEditorForm(SampleRules[1], [Watch, Desktop]));
 
+    [Theory]
+    [InlineData("en")]
+    [InlineData("ko")]
+    public void First_run_window_renders_with_all_text(string language)
+    {
+        (string, PlanItem) Move(string folder, string name, string goesTo) =>
+            (folder, new PlanItem(new Candidate(Path.Combine(folder, name), name, false, 1000, DateTime.UtcNow, null), goesTo, null, null));
+        Render(language, "first-run", () => new FirstRunForm(
+        [
+            Move(Watch, "Annual report 2026.pdf", Path.Combine(Watch, "Documents")),
+            Move(Watch, "holiday.jpg", Path.Combine(Watch, "Images")),
+            Move(Watch, "setup-tool.exe", Path.Combine(Watch, "Installers")),
+            Move(Desktop, "Bank statement September.pdf", Path.Combine(Desktop, "Finance")),
+            Move(Watch, "site-export.csv", @"D:\Archive\Example"),
+        ]));
+    }
+
     [Fact]
     public void Rule_summary_lists_each_condition()
     {

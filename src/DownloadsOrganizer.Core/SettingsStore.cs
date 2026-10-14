@@ -19,6 +19,7 @@ public static class SettingsStore
     {
         public string? Path { get; init; }
         public bool? SortByType { get; init; }
+        public DateTime? LeaveAloneBeforeUtc { get; init; }
     }
 
     sealed record Stored
@@ -62,7 +63,7 @@ public static class SettingsStore
         var wanted = new List<WatchedFolder>();
         if (stored.Folders is { } listed)
         {
-            wanted.AddRange(listed.Where(f => !string.IsNullOrWhiteSpace(f.Path)).Select(f => new WatchedFolder(f.Path!, f.SortByType ?? true)));
+            wanted.AddRange(listed.Where(f => !string.IsNullOrWhiteSpace(f.Path)).Select(f => new WatchedFolder(f.Path!, f.SortByType ?? true, f.LeaveAloneBeforeUtc)));
         }
         else if (!string.IsNullOrWhiteSpace(stored.WatchFolder))
         {
@@ -98,7 +99,7 @@ public static class SettingsStore
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
         var stored = new Stored
         {
-            Folders = [.. settings.Folders.Select(f => new StoredFolder { Path = f.Location, SortByType = f.SortByType })],
+            Folders = [.. settings.Folders.Select(f => new StoredFolder { Path = f.Location, SortByType = f.SortByType, LeaveAloneBeforeUtc = f.LeaveAloneBeforeUtc })],
             SettleMinutes = settings.SettleDelay.TotalMinutes,
             MoveFolders = settings.MoveFolders,
             Rules = [.. settings.Rules],

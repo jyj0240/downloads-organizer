@@ -31,6 +31,7 @@ static class Program
         }
 
         // A downloaded exe installs itself, starts the installed copy and gets out of the way.
+        // --silent (used by package managers such as winget) reports a failure only through the exit code.
         if (SelfInstaller.IsBundled && !SelfInstaller.IsRunningInstalled && !args.Contains("--no-install"))
         {
             try
@@ -40,7 +41,11 @@ static class Program
             catch (Exception e)
             {
                 AppLog.Write(e);
-                MessageBox.Show(UiText.Get("InstallFailed") + "\n\n" + e.Message, Core.AppInfo.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.ExitCode = 1;
+                if (!args.Contains("--silent"))
+                {
+                    MessageBox.Show(UiText.Get("InstallFailed") + "\n\n" + e.Message, Core.AppInfo.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             return;
         }

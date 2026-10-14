@@ -19,18 +19,21 @@ sealed class TrayContext : ApplicationContext
     ToolStripMenuItem _undoItem = null!;
     HistoryForm? _history;
     SettingsForm? _settingsWindow;
+    FirstRunForm? _firstRunWindow;
     readonly Updater? _updater;
+    bool _exiting;
 
     public TrayContext(AppSettings settings, bool firstRun, bool updated = false)
     {
         // Creating the menu installs the WinForms synchronization context; capture it to come back to the UI thread.
         _ui = SynchronizationContext.Current ?? new WindowsFormsSynchronizationContext();
         _settings = settings;
-        _organizer = StartOrganizer(settings);
+        // On first run nothing moves until the user has seen what would happen to the files already there.
+        _organizer = StartOrganizer(settings, paused: firstRun);
         // Only the installed copy updates itself; a development build (dotnet run) never does.
         if (SelfInstaller.IsRunningInstalled)
         {
-            _updater = new Updater(busy: () => _history is { IsDisposed: false } || _settingsWindow is { IsDisposed: false })
+            _updater = new Updater(busy: () => _history is { IsDisposed: false } || _settingsWindow is { IsDisposed: false } || _firstRunWindow is { IsDisposed: false })
             {
                 Automatic = settings.AutoUpdate,
             };
@@ -54,7 +57,7 @@ sealed class TrayContext : ApplicationContext
 
         if (firstRun)
         {
-            ShowBalloon(UiText.Get("FirstRunTitle"), UiText.Format("FirstRunText", (int)_settings.SettleDelay.TotalMinutes));
+            _ui.Post(_ => AskAboutExistingItems(), null);   // once the message loop runs
         }
         else if (updated)
         {
@@ -62,13 +65,56 @@ sealed class TrayContext : ApplicationContext
         }
     }
 
-    OrganizerGroup StartOrganizer(AppSettings settings)
+    OrganizerGroup StartOrganizer(AppSettings settings, bool paused = false)
     {
-        var organizer = new OrganizerGroup(settings, _journal);
+        var organizer = new OrganizerGroup(settings, _journal) { Paused = paused };   // before Start: its first round runs at once
         organizer.Moved += moved => _ui.Post(_ => OnMoved(moved), null);
         organizer.Failed += AppLog.Write;
         organizer.Start();
         return organizer;
+    }
+
+    /// <summary>First run: shows where the items already in the folders would go and lets the user sort them now or
+    /// leave them. Either way new downloads are sorted from now on.</summary>
+    void AskAboutExistingItems()
+    {
+        var startedUtc = DateTime.UtcNow;
+        var moves = _settings.Folders
+            .Where(f => Directory.Exists(f.Location))
+            .SelectMany(f => new Organizer(_settings.For(f), _journal).Plan().Where(p => p.WillMove).Select(p => (f.Location, p)))
+            .ToList();
+        if (moves.Count == 0)
+        {
+            SetPaused(false);
+            ShowBalloon(UiText.Get("FirstRunTitle"), UiText.Format("FirstRunText", (int)_settings.SettleDelay.TotalMinutes));
+            return;
+        }
+        var window = new FirstRunForm(moves);
+        _firstRunWindow = window;
+        window.FormClosed += (_, _) =>
+        {
+            var sortNow = window.SortNow;
+            _firstRunWindow = null;
+            if (_exiting)
+            {
+                return;
+            }
+            if (!sortNow)
+            {
+                ApplySettings(_settings with { Folders = [.. _settings.Folders.Select(f => f with { LeaveAloneBeforeUtc = startedUtc })] });
+            }
+            SetPaused(false);
+            if (sortNow)
+            {
+                OrganizeNow();   // its notification says how many moved
+            }
+            else
+            {
+                ShowBalloon(UiText.Get("FirstRunTitle"), UiText.Format("FirstRunText", (int)_settings.SettleDelay.TotalMinutes));
+            }
+        };
+        window.Show();
+        window.Activate();
     }
 
     /// <summary>Builds the menu in the current language. Called again when the language changes.</summary>
@@ -145,12 +191,14 @@ sealed class TrayContext : ApplicationContext
         });
     }
 
-    void TogglePause()
+    void TogglePause() => SetPaused(!_organizer.Paused);
+
+    void SetPaused(bool paused)
     {
-        _organizer.Paused = !_organizer.Paused;
-        _pauseItem.Text = UiText.Get(_organizer.Paused ? "MenuResume" : "MenuPause");
-        _trayIcon.Text = UiText.Get(_organizer.Paused ? "TooltipPaused" : "TooltipWatching");
-        if (!_organizer.Paused)
+        _organizer.Paused = paused;
+        _pauseItem.Text = UiText.Get(paused ? "MenuResume" : "MenuPause");
+        _trayIcon.Text = UiText.Get(paused ? "TooltipPaused" : "TooltipWatching");
+        if (!paused)
         {
             _organizer.MarkChanged();
         }
@@ -228,8 +276,7 @@ sealed class TrayContext : ApplicationContext
         var paused = _organizer.Paused;
         _organizer.Dispose();
         _settings = updated;
-        _organizer = StartOrganizer(updated);
-        _organizer.Paused = paused;
+        _organizer = StartOrganizer(updated, paused);
         if (_updater is not null)
         {
             _updater.Automatic = updated.AutoUpdate;
@@ -309,12 +356,14 @@ sealed class TrayContext : ApplicationContext
 
     protected override void ExitThreadCore()
     {
+        _exiting = true;
         _exitWait.Unregister(null);
         _exitRequest.Dispose();
         _updater?.Dispose();
         _organizer.Dispose();   // waits for a move under way
         _history?.Close();
         _settingsWindow?.Close();
+        _firstRunWindow?.Close();
         _trayIcon.Visible = false;
         _trayIcon.Dispose();
         _menu.Dispose();

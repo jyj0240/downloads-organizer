@@ -53,11 +53,9 @@ jobs:
 
           ## Install
 
-          Download ``DownloadsOrganizer.exe`` and run it. It installs itself for your user account (no admin rights) and starts in the tray. To update, run a newer exe.
+          Download ``DownloadsOrganizer.exe`` and run it. It installs itself for your user account (no admin rights), starts in the tray and keeps itself up to date.
 
           The exe is not signed yet, so Windows may say "Windows protected your PC". Choose **More info**, then **Run anyway**.
-
-          ``DownloadsOrganizer.exe``를 받아 실행하면 스스로 설치되고 트레이에서 돕니다. 서명 전이라 "Windows의 PC 보호" 창이 뜨면 **추가 정보** > **실행**을 누르세요.
 
           SHA-256: ``$hash``
           "@

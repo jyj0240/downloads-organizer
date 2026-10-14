@@ -17,10 +17,14 @@ public sealed record OrganizerSettings
     public bool SortByType { get; init; } = true;
 
     public IReadOnlyList<Rule> Rules { get; init; } = [];
+
+    /// <summary>Items that arrived in the folder before this time are left where they are, except by "Organize now".
+    /// Set when the user chooses, on first run, to leave the files that were already there.</summary>
+    public DateTime? LeaveAloneBeforeUtc { get; init; }
 }
 
 /// <summary>A folder the user asked to keep tidy.</summary>
-public sealed record WatchedFolder(string Location, bool SortByType = true);
+public sealed record WatchedFolder(string Location, bool SortByType = true, DateTime? LeaveAloneBeforeUtc = null);
 
 /// <summary>Everything in settings.json: the folders, what they share, and app preferences.</summary>
 public sealed record AppSettings
@@ -45,6 +49,7 @@ public sealed record AppSettings
     {
         WatchFolder = folder.Location,
         SortByType = folder.SortByType,
+        LeaveAloneBeforeUtc = folder.LeaveAloneBeforeUtc,
         SettleDelay = SettleDelay,
         MoveFolders = MoveFolders,
         Rules = Rules,

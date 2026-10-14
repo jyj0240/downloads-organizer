@@ -177,13 +177,13 @@ sealed class SettingsForm : Form
     void AddFolderRow(WatchedFolder folder)
     {
         _filling = true;
-        var item = new ListViewItem(folder.Location) { Checked = folder.SortByType, Tag = folder.Location };
+        var item = new ListViewItem(folder.Location) { Checked = folder.SortByType, Tag = folder };
         item.SubItems.Add(ModeText(folder.SortByType));
         _folders.Items.Add(item);
         _filling = false;
     }
 
-    IEnumerable<string> FolderPaths() => _folders.Items.Cast<ListViewItem>().Select(i => (string)i.Tag!);
+    IEnumerable<string> FolderPaths() => _folders.Items.Cast<ListViewItem>().Select(i => ((WatchedFolder)i.Tag!).Location);
 
     void UpdateFolderButtons() => _removeFolder.Enabled = _folders.SelectedItems.Count == 1 && _folders.Items.Count > 1;
 
@@ -330,7 +330,7 @@ sealed class SettingsForm : Form
     {
         Result = _current with
         {
-            Folders = [.. _folders.Items.Cast<ListViewItem>().Select(i => new WatchedFolder((string)i.Tag!, i.Checked))],
+            Folders = [.. _folders.Items.Cast<ListViewItem>().Select(i => (WatchedFolder)i.Tag! with { SortByType = i.Checked })],
             SettleDelay = TimeSpan.FromMinutes((double)_wait.Value),
             MoveFolders = _moveFolders.Checked,
             Notify = _notify.Checked,

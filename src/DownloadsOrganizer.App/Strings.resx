@@ -27,6 +27,12 @@
   <data name="TooltipPaused" xml:space="preserve"><value>Downloads Organizer - paused</value></data>
   <data name="FirstRunTitle" xml:space="preserve"><value>Downloads Organizer is running</value></data>
   <data name="FirstRunText" xml:space="preserve"><value>Finished downloads are sorted into folders {0} minutes after they arrive. Right-click this icon for options.</value></data>
+  <data name="FirstRunWindowTitle" xml:space="preserve"><value>Welcome to Downloads Organizer</value></data>
+  <data name="FirstRunIntro" xml:space="preserve"><value>{0} item(s) are already in the folders to tidy. Sorting them now would move them like this:</value></data>
+  <data name="FirstRunHint" xml:space="preserve"><value>New downloads are sorted either way. Items you leave can be sorted later with "Organize now" in the tray menu, and every move can be undone.</value></data>
+  <data name="ColGoesTo" xml:space="preserve"><value>Goes to</value></data>
+  <data name="BtnSortNow" xml:space="preserve"><value>Sort them now</value></data>
+  <data name="BtnLeaveThem" xml:space="preserve"><value>Leave them</value></data>
   <data name="MovedTitle" xml:space="preserve"><value>Downloads organized</value></data>
   <data name="MovedText" xml:space="preserve"><value>Moved {0} item(s). Click to see the move history.</value></data>
   <data name="NothingToMove" xml:space="preserve"><value>Nothing to move right now.</value></data>

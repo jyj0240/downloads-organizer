@@ -27,6 +27,12 @@
   <data name="TooltipPaused" xml:space="preserve"><value>Downloads Organizer - 일시정지됨</value></data>
   <data name="FirstRunTitle" xml:space="preserve"><value>Downloads Organizer가 실행 중입니다</value></data>
   <data name="FirstRunText" xml:space="preserve"><value>다 받은 파일은 {0}분 뒤 종류별 폴더로 정리됩니다. 메뉴는 이 아이콘을 오른쪽 클릭하세요.</value></data>
+  <data name="FirstRunWindowTitle" xml:space="preserve"><value>Downloads Organizer를 시작합니다</value></data>
+  <data name="FirstRunIntro" xml:space="preserve"><value>정리할 폴더에 이미 {0}개가 있습니다. 지금 정리하면 아래처럼 옮깁니다.</value></data>
+  <data name="FirstRunHint" xml:space="preserve"><value>새로 받는 파일은 어느 쪽을 골라도 정리됩니다. 그대로 둔 파일은 나중에 트레이 메뉴의 "지금 정리"로 옮길 수 있고, 옮긴 것은 모두 되돌릴 수 있습니다.</value></data>
+  <data name="ColGoesTo" xml:space="preserve"><value>옮길 곳</value></data>
+  <data name="BtnSortNow" xml:space="preserve"><value>지금 정리</value></data>
+  <data name="BtnLeaveThem" xml:space="preserve"><value>그대로 두기</value></data>
   <data name="MovedTitle" xml:space="preserve"><value>다운로드 정리</value></data>
   <data name="MovedText" xml:space="preserve"><value>{0}개를 정리했습니다. 누르면 이동 기록을 봅니다.</value></data>
   <data name="NothingToMove" xml:space="preserve"><value>지금 정리할 파일이 없습니다.</value></data>
